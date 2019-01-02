@@ -83,7 +83,7 @@ int main()
 	}
 
 }
-// euler's formula for gcd
+// euclidean algorithm
 int gcd(int a, int b) {
 	return b == 0 ? a : gcd(b, a % b);
 }
