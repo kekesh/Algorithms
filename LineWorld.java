@@ -1,5 +1,4 @@
-// This problem is actually much easier than what I did. You can solve it in O(n) time 
-// without any graphs. But I felt like doing a BFS solution.
+// BFS in Java
 
 import java.io.*;
 import java.util.*;
