@@ -21,18 +21,8 @@ ifstream fin("transform.in");
 ofstream fout("transform.out");
 
 int N;
-char preim[20][20];
-char postim[20][20];
-
-/* template <class T>
-void print(T input) {
-  for (int i = 0; i < N; i++) {
-    for (int j = 0; j < N; j++) {
-      fout << input[i][j];
-    }
-    fout << "" << endl;
-  }
-}  */
+char preim[20][20];  /* Preimage */
+char postim[20][20]; /* Postimage */
 
 void init() {
   char x;
@@ -42,7 +32,6 @@ void init() {
       preim[i][j] = x;
     }
   }
-
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       fin >> x;
@@ -72,6 +61,7 @@ char** reflect(T preim) {
   return reflection;
 }
 
+/* To rotate 90 degrees clockwise, we transpose & reverse rows. */
 template <class T>
 char** rotate(T preim) {
   char** rotation = new char*[N];
@@ -122,9 +112,10 @@ void solve() {
   fout << ans << endl;
 }
 
-void setIO(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+void setIO() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  cout.tie(0);
 }
 
 int main() {
