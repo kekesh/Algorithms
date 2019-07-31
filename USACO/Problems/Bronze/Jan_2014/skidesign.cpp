@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;  
+using namespace std;
 
 typedef long long ll;
 typedef pair<int, int> pi;
