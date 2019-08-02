@@ -5,6 +5,13 @@
         "iosfwd": "cpp",
         "vector": "cpp",
         "set": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "algorithm": "cpp",
+        "unordered_map": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "unordered_set": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp"
     }
 }

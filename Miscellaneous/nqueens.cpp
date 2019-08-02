@@ -1,5 +1,8 @@
 /* A depth-first search solution to the n-queens problem.
-   Solution by Ekesh Kumar.
+   Solution by Ekesh Kumar. Runtime: O(n^n).
+   
+   N-Queens Problem (reworded): "Place n queens on an n x n chessboard such that
+   no queen attacks another."
 */
 
 #include <assert.h>
