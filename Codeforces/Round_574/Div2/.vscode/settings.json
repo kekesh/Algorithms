@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "limits": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "tuple": "cpp"
+    }
+}
