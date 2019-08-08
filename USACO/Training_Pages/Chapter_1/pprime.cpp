@@ -39,12 +39,7 @@ void setIO() {
   fin.tie(0);
   fout.tie(0);
 }
-// A C++ program to generate palindromic numbers
-// less than n.
-#include <iostream>
-using namespace std;
 
-// A utility for creating palindrome
 int createPalindrome(int input, int b, bool isOdd) {
   int n = input;
   int palin = input;
@@ -53,27 +48,19 @@ int createPalindrome(int input, int b, bool isOdd) {
     n /= b;
   }
 
-  // cout << "n = " << n << " , palin = " << palin << endl;
-  // of number to itself
   while (n > 0) {
     palin = palin * b + (n % b);
-    // cout << "palin is now " << palin << endl;
     n /= b;
-    // cout << "n is now " << n << endl;
   }
-
   return palin;
 }
 
-// Function to print decimal palindromic number
 void generatePalindromes(ll lower, ll upper) {
   int number;
 
-  // Run two times for odd and even length palindromes
   for (int j = 0; j < 2; j++) {
     int i = 1;
     while ((number = createPalindrome(i, 10, j % 2)) < upper) {
-      // cout << "Pushing back " << number << endl;
       if (number >= lower) {
         palindromes.push_back(number);
       }
@@ -85,10 +72,7 @@ void generatePalindromes(ll lower, ll upper) {
 int main() {
   setIO();
   init();
-  // cout << "a = " << a << " and b = " << b << endl;
   generatePalindromes(a, b + 1);
-
-  // cout << "Done" << endl;
   sort(palindromes.begin(), palindromes.end());
   sieve(b);
 
@@ -103,7 +87,7 @@ int main() {
 
 inline void init() { fin >> a >> b; }
 
-/* O(n log log n) sieve */
+/* O(n log log n) bit sieve */
 /* Skip all even numbers. */
 void sieve(ll bound) {
   for (int i = 3; i * i < bound; i += 2) {
@@ -112,16 +96,4 @@ void sieve(ll bound) {
         primes[j / 2] = 1;
       }
   }
-  // cout << "done" << endl;
-}
-
-bool is_palindrome(int num) {
-  string num_str = to_string(num);
-
-  F0R(i, num_str.length() / 2) {
-    if (num_str[i] != num_str[num_str.length() - i - 1]) {
-      return false;
-    }
-  }
-  return true;
 }

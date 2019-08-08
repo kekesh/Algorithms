@@ -22,8 +22,8 @@ typedef long long ll;
 typedef pair<int, int> pi;
 
 #define F0R(i, a) for (int i = 0; i < (a); i++)
-
 #define FOR(i, a, b) for (int i = (a); i < (b); i++)
+
 void init();
 void setIO();
 bool is_safe(int row, int col);
