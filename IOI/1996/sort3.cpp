@@ -32,7 +32,6 @@ void init();
 void solve();
 void setIO();
 inline void init();
-int gcd(int a, int b);
 
 ifstream fin("sort3.in");
 ofstream fout("sort3.out");
