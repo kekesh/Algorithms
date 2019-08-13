@@ -1,9 +1,3 @@
-/*
-  ID: ekfrmd1
-  LANG: C++11
-  TASK: sort3
-*/
-
 #include <assert.h>
 #include <math.h>
 #include <string.h>
@@ -14,8 +8,8 @@
 #include <set>
 #include <stack>
 #include <vector>
-
 #include <string>
+
 using namespace std;
 
 typedef long long ll;
@@ -28,17 +22,34 @@ typedef pair<int, int> pi;
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+const ll INF = 1e18;
+
+// Debugging macros
+#define PRINT_ARRAY(a, N)        \
+  F0R(z, N) cout << a[z] << " "; \
+  cout << "\n"
+
 void setIO();
 inline void init();
-int cut_rod(int p[], int n);
+inline void solve();
+
+double H, L;
+double ans;
 
 int main() {
   setIO();
-  int p[] = {1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
-  int N = 1;
-  cout << "Answer: " << cut_rod(p, 10) << endl;
+  init();
+  solve();
+  return 0;
 }
 
+// A^2 + L^2 = (A + H)^2
+// (L^2 - H^2)/2H = A
+inline void solve() {
+    printf("%0.10f\n", (L*L - H*H)/(2*H));
+}
+ 
+ 
 /* Fast I/O */
 void setIO() {
   ios_base::sync_with_stdio(0);
@@ -46,18 +57,4 @@ void setIO() {
   cout.tie(0);
 }
 
-/* Recursive top-down solution to the rod cutting problem.
-   This is really inefficient; the same subproblems are solved
-   multiple times.  */
-int cut_rod(int p[], int n) {
-  if (n == 0) {
-    return 0;
-  }
-  int answer = -10e6;
-
-  FOR(i, 1, n + 1) {
-    cout << "i = " << i << endl;
-    answer = MAX(answer, p[i - 1] + cut_rod(p, n - i));
-  }
-  return answer;
-}
+inline void init() { cin >> H >> L; }
