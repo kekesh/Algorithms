@@ -40,6 +40,9 @@ void setIO() {
   fout.tie(0);
 }
 
+
+
+
 int createPalindrome(int input, int b, bool isOdd) {
   int n = input;
   int palin = input;
