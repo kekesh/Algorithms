@@ -9,6 +9,7 @@
 #include <set>
 #include <stack>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -28,9 +29,45 @@ const ll INFTY = 10e8;
   cout << "\n"
 
 void setIO();
-void solve();
-void solve2();
 void init();
+void solve();
+
+ll N, M;
+unordered_set<ll> nums_a;
+unordered_set<ll> nums_b;
+
+int main() {
+  setIO();
+  init();
+}
+
+void init() {
+  cin >> N;
+  ll x;
+  F0R(i, N) {
+    cin >> x;
+    nums_a.insert(x);
+  }
+  cin >> M;
+  F0R(i, M) {
+    cin >> x;
+    nums_b.insert(x);
+  }
+  unordered_set<ll>::iterator itr = nums_a.begin();
+  unordered_set<ll>::iterator itr2 = nums_b.begin();
+
+  while (itr != nums_a.end()) {
+    itr2 = nums_b.begin();
+    while (itr2 != nums_b.end()) {
+      if (!nums_a.count(*itr + *itr2) && !nums_b.count(*itr + *itr2)) {
+        cout << *itr << " " << *itr2 << endl;
+        exit(0);
+      }
+      itr2++;
+    }
+    itr++;
+  }
+}
 
 void setIO() {
   ios_base::sync_with_stdio(0);
@@ -38,23 +75,4 @@ void setIO() {
   cout.tie(0);
 }
 
-ll N = 11;
-ll prices[10] = {1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
-ll dp[11];
-
-int main() {
-  setIO();
-  solve();
-  return 0;
-}
-
-
-void solve() {
-  F0R(i, 12) { dp[i] = -INFTY; }
-  dp[0] = 0;
-
-  FOR(i, 1, N + 1) {
-    FOR(j, 1, i + 1) { dp[i] = MAX(dp[i], prices[j - 1] + dp[i - j]); }
-  }
-  PRINT_ARRAY(dp, 11);
-}
+void solve() {}

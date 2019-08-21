@@ -94,5 +94,3 @@ void setIO() {
   fin.tie(0);
   fout.tie(0);
 }
-
-void solve() {}
