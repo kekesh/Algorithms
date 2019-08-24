@@ -1,11 +1,6 @@
-/*
-  ID: ekfrmd1
-  LANG: C++11
-  TASK: money
-*/
-
 #include <assert.h>
 #include <math.h>
+#include <stdio.h>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -34,43 +29,41 @@ const ll INFTY = 10e8;
   cout << "\n"
 
 void setIO();
-inline void init();
-ll solve(ll target);
+void dp();
 
-ifstream fin("money.in");
-ofstream fout("money.out");
+ll binomial[215][215];  // i choose j
+ll n, k;
 
-ll V, N;
-ll dp[10005][26];
-ll coins[26];
 
-inline void init() {
-  fin >> V >> N;
-  F0R(i, V) { fin >> coins[i]; }
-}
+
+inline void init() { cin >> n >> k; }
 
 int main() {
   setIO();
+  dp();
   init();
-  
-  F0R(i, V + 1) {
-    dp[0][i] = 1;
+  while (n != 0 && k != 0) {
+    cout << binomial[n + k - 1][k - 1] % 1000000 << endl;
+    init();
   }
-  
-  FOR(i, 1, N + 1) {
-    FOR(j, 0, V + 1) {
-      ll x = (j - 1 >= 0) ? dp[i][j - 1] : 0;
-      ll y = (i - coins[j] >= 0) ? dp[i - coins[j]][j] : 0;
-      dp[i][j] = x + y;
+  return 0;
+}
+
+void dp() {
+  FOR(n, 1, 210) {
+    binomial[n][0] = 1;
+    binomial[n][n] = 1;
+  }
+  FOR(n, 2, 210) {
+    FOR(k, 1, n) {
+      binomial[n][k] = (binomial[n - 1][k]+ (binomial[n - 1][k - 1]) % 1000000);
     }
   }
-  
-  fout << dp[N][V] << endl;
 }
 
 /* Fast I/O */
 void setIO() {
   ios_base::sync_with_stdio(0);
-  fin.tie(0);
-  fout.tie(0);
+  cin.tie(0);
+  cout.tie(0);
 }
