@@ -23,7 +23,7 @@ int main()
         bitset<16> bit(i);
         for(int b=0;b!=G;b++) if(bit[b])
         for(int j=0;j!=V;j++)
-        v[j]+= feed[b][j];      
+        v[j]+= feed[b][j];
         bool ok =  true;
         for(int j=0;j!=V;j++) if(v[j] < vit[j])
         {
@@ -34,7 +34,7 @@ int main()
         {
             vc = bit.count();
             minbit=bit;
-        }   
+        }
     }
     cout << vc;
     for(int i=0;i!=G;i++) if(minbit[i])

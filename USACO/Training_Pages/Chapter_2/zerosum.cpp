@@ -95,7 +95,7 @@ int main() {
       }
       // RB tree will automatically sort
       all_answers.insert(ans);
-      
+
     }
   }
   print_ans();

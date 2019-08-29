@@ -1,7 +1,7 @@
 /*
   ID: ekfrmd1
   LANG: C++11
-  TASK: subset
+  TASK: nocows
 */
 
 #include <assert.h>
@@ -35,51 +35,60 @@ const ll INFTY = 10e8;
 
 void setIO();
 inline void init();
-ll solve(ll sum, ll start, ll end);
+ll fn(ll n, ll k);
 
-ifstream fin("subset.in");
-ofstream fout("subset.out");
+ifstream fin("nocows.in");
+ofstream fout("nocows.out");
 
-ll N;
-ll target;
-ll nums[41];
+ll N, K;
+ll dp[205][105];
+bool visited[205][105];
+bool seen[205][105][205][105];
 
-// dp[i][j] represents state at ith sum and jth start. max sum is 39*40/2 = 780.
-ll dp[800][41];
-
-inline void init() { fin >> N; }
 
 int main() {
   setIO();
   init();
-  if (((N * (N + 1)) / 2) & 1) {
-    fout << "0" << endl;
-    exit(0);
-  }
-  target = N * (N + 1) / 4;
-  FOR(i, 1, N + 1) { nums[i - 1] = i; }
-  memset(dp, -1, sizeof(dp));
-  fout << solve(0, 0, N) << endl;
+  visited[1][1] = true;
+  dp[1][1] = 1;
+  ll ans = fn(N, K);
+  cout << "Answer: " << ans << endl;
+
+
+
   return 0;
 }
 
-ll solve(ll sum, ll start, ll end) {
-  if (start >= end) {
+inline void init() { cin >> N >> K; }
+// f(9, 4) -> expected: 6.
+ll fn(ll n, ll k) {
+
+  if (n % 2 == 0) {
     return 0;
   }
-  if (dp[sum][start] != -1) {
-    return dp[sum][start];
+  if (2 * k - 1 > n) {
+    return 0;
+  }
+  if (k == 1) {
+    return (n == 1 ? 1 : 0);
+  }
+  if (visited[n][k]) {
+    return dp[n][k];
   }
 
-  if (sum == target) {
-    return 1;
+  ll ans = 0;
+  for (int i = 1; i < (n + 1)/2; i += 2) {
+    FOR(j, 1, k) {
+	ans += fn(i, j) * fn(n - i - 1, k - 1);
+	ans += fn(i, k - 1) * fn(n - i - 1, j);
+		ans += fn(i, k - 1) * fn(n - i - 1, k - 1);
+ }
   }
+  visited[n][k] = true;
 
-  return dp[sum][start] = solve(sum, start + 1, end) +
-                          solve(sum + nums[start], start + 1, end);
+  return dp[n][k] = ans;
 }
 
-/* Fast I/O */
 void setIO() {
   ios_base::sync_with_stdio(0);
   fin.tie(0);
