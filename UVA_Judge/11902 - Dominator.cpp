@@ -40,6 +40,8 @@ int adj_mat[101][101];
 ll T;
 ll N;
 
+/* Perform a DFS in order to find which parts of the compoennt
+ * are reachable withou going through the the candidate dominator. */
 void dfs(int u, int dominator) {
   visited[u] = true;
   F0R(j, N) {
@@ -49,6 +51,8 @@ void dfs(int u, int dominator) {
   }
 }
 
+/* Perform a DFS in order to find the connected component prior to
+ * removing any edges. */
 void dfs_all(int u) {
   visited_all[u] = true;
   F0R(j, N) {
@@ -69,7 +73,6 @@ int main(void) {
 
     memset(visited_all, false, sizeof(visited_all));
     dfs_all(0);
-
     cout << "Case " << caseNo << ":" << endl;
     string divider = "+";
     F0R(i, 2 * N - 1) divider += "-";
