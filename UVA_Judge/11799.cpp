@@ -31,7 +31,23 @@ const ll INFTY = 10e8;
 
 int main() {
 
+	ll T;
+	int j = 0;
+	cin >> T;
+	while (T--) {
+		ll N;
 
+		cin >> N;
+
+		ll maxi = -1;
+		F0R(i, N) {
+			ll x;
+			cin >> x;
+			maxi = MAX(x, maxi);
+		}
+
+		cout << "Case " << ++j << ": " << maxi << endl;
+	}
 
 	return 0;
 
