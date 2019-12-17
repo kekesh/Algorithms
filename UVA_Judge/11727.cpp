@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include <assert.h>
 #include <math.h>
 #include <string.h>
+#include <queue>
 #include <algorithm>
 #include <bitset>
 #include <fstream>
@@ -15,6 +15,7 @@
 using namespace std;
 
 typedef long long ll;
+typedef unsigned long long ull;
 typedef pair<int, int> pi;
 const ll INFTY = 10e8;
 
@@ -28,44 +29,22 @@ const ll INFTY = 10e8;
   F0R(z, N) cout << a[z] << " "; \
   cout << "\n"
 
-void setIO();
-
-
-ll N;
-
-
-inline void init() {}
-
 
 int main() {
-  setIO();
-  init();
-  char buffer[1048577];
-  bool flag = 0;
 
-  while (fgets(buffer, 1048500, stdin)) {
-    for (int i = 0; buffer[i]; i++) {
-      if (buffer[i] == '"') {
-        if (flag == 0)
-          printf("``");
-        else
-          printf("''");
+	ll T;
+	cin >> T;
+	int j = 0;
+	while (T--) {
+		vector<ll> arr(3);
 
-        flag = !flag;
-      } else {
-        printf("%c", buffer[i]);
-      }
-    }
-  }
+		cin >> arr[0] >> arr[1] >> arr[2];
 
+		sort(arr.begin(), arr.end());
 
+		cout << "Case " << ++j << ": " << arr[1] << endl;
+	}
 
-  return 0;
-}
+	return 0;
 
-/* Fast I/O */
-void setIO() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
 }

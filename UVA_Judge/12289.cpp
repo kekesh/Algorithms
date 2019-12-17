@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include <assert.h>
 #include <math.h>
 #include <string.h>
+#include <queue>
 #include <algorithm>
 #include <bitset>
 #include <fstream>
@@ -15,6 +15,7 @@
 using namespace std;
 
 typedef long long ll;
+typedef unsigned long long ull;
 typedef pair<int, int> pi;
 const ll INFTY = 10e8;
 
@@ -28,44 +29,33 @@ const ll INFTY = 10e8;
   F0R(z, N) cout << a[z] << " "; \
   cout << "\n"
 
-void setIO();
 
+//ofstream fout("output.out");
 
-ll N;
+int d(string a, string b) {
 
+	int cnt = 0;
+	F0R(i, a.size()) {
+		if (a[i] != b[i]) cnt++;
+	}
+	return cnt;
 
-inline void init() {}
+}
 
 
 int main() {
-  setIO();
-  init();
-  char buffer[1048577];
-  bool flag = 0;
 
-  while (fgets(buffer, 1048500, stdin)) {
-    for (int i = 0; buffer[i]; i++) {
-      if (buffer[i] == '"') {
-        if (flag == 0)
-          printf("``");
-        else
-          printf("''");
+	ll T;
+	cin >> T;
 
-        flag = !flag;
-      } else {
-        printf("%c", buffer[i]);
-      }
-    }
-  }
+	while (T--) {
+		string st;
+		cin >> st;
+		if (d("one", st) <= 1) cout << 1 << endl;
+		else if (d("two", st) <= 1) cout << 2 << endl;
+		else if (d("three", st) <= 1) cout << 3 << endl;
+	}
 
+	return 0;
 
-
-  return 0;
-}
-
-/* Fast I/O */
-void setIO() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
 }

@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include <assert.h>
 #include <math.h>
 #include <string.h>
+#include <queue>
 #include <algorithm>
 #include <bitset>
 #include <fstream>
@@ -15,6 +15,7 @@
 using namespace std;
 
 typedef long long ll;
+typedef unsigned long long ull;
 typedef pair<int, int> pi;
 const ll INFTY = 10e8;
 
@@ -28,44 +29,27 @@ const ll INFTY = 10e8;
   F0R(z, N) cout << a[z] << " "; \
   cout << "\n"
 
-void setIO();
-
-
-ll N;
-
-
-inline void init() {}
-
 
 int main() {
-  setIO();
-  init();
-  char buffer[1048577];
-  bool flag = 0;
+	string st;
 
-  while (fgets(buffer, 1048500, stdin)) {
-    for (int i = 0; buffer[i]; i++) {
-      if (buffer[i] == '"') {
-        if (flag == 0)
-          printf("``");
-        else
-          printf("''");
+	int j = 0;
+	while (cin >> st, st != "#") {
 
-        flag = !flag;
-      } else {
-        printf("%c", buffer[i]);
-      }
-    }
-  }
+		string ans;
+
+		if (st == "HELLO") ans = "ENGLISH";
+		else if (st == "HOLA") ans = "SPANISH";
+		else if (st == "HALLO") ans = "GERMAN";
+		else if (st == "BONJOUR") ans = "FRENCH";
+		else if (st == "CIAO") ans = "ITALIAN";
+		else if (st == "ZDRAVSTVUJTE") ans = "RUSSIAN";
+		else ans = "UNKNOWN";
+
+		cout << "Case " << ++j << ": " << ans << endl;
+	}
 
 
+	return 0;
 
-  return 0;
-}
-
-/* Fast I/O */
-void setIO() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
 }

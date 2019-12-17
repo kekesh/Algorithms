@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <math.h>
 #include <string.h>
+#include <queue>
 #include <algorithm>
 #include <bitset>
 #include <fstream>
@@ -31,7 +32,10 @@ const ll INFTY = 10e8;
 
 int main() {
 
-
+	string st;
+	while (getline(cin, st)) {
+		cout << st << endl;
+	}
 
 	return 0;
 
