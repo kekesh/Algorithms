@@ -81,7 +81,41 @@ void ckmax(T &a, T b) {
 
 
 int main() {
-	setIO();
+  setIO();
+  ll k, m;
 
-	return 0;
+  while (cin >> k) {
+    if (k == 0) break;
+    cin >> m;
+
+    unordered_map<int, bool> registered;
+
+    F0R(i, k) {
+      ll x;
+      cin >> x;
+      registered[x] = true;
+    }
+    bool isok = true;
+    F0R(i, m) {
+      // for each category
+      ll num_total, num_req;
+      cin >> num_total >> num_req;
+      F0R(j, num_total) {
+        ll x;
+        cin >> x;
+        if (registered.count(x) && registered[x]) {
+          num_req--;
+        }
+      }
+      if (num_req > 0) {
+        isok = false;
+      }
+    }
+
+    if (isok) {
+      cout << "yes" << endl;
+    } else {
+      cout << "no" << endl;
+    }
+  }
 }
