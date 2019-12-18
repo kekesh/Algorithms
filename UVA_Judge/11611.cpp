@@ -50,7 +50,40 @@ const ld PI = 4 * atan((ld)1);
 // Start of code.
 
 
+
 int main() {
+	ll L;
+	while (cin >> L, L != 0) {
+		ll last_seen = 0;
+		int flag = -1;
+		ll min_dist = INFTY;
+		F0R(i, L) {
+			char x;
+			cin >> x;
+
+			if ((x == 'R' || x == 'D') && (flag == -1)) {
+				if (x == 'R') flag = 0;
+				else if (x == 'D') flag = 1;
+				last_seen = i;
+			} else if (x == 'R' && flag == 1) {
+				min_dist = MIN(min_dist, (i - last_seen));
+				last_seen = i;
+				flag = 0;
+			} else if (x == 'D' && flag == 0) {
+				min_dist = MIN(min_dist, (i - last_seen));
+				last_seen = i;
+				flag = 1;
+			} else if (x == 'Z') {
+				min_dist = 0;
+			} else if (x == 'R' && flag == 0) {
+				last_seen = i;
+			} else if (x == 'D' && flag == 1) {
+				last_seen = i;
+			}
+
+		}
+		cout << min_dist << endl;
+	}
 
 	return 0;
 }

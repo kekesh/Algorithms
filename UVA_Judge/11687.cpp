@@ -50,7 +50,29 @@ const ld PI = 4 * atan((ld)1);
 // Start of code.
 
 
+
 int main() {
 
+	string next;
+
+	while (cin >> next, next != "END") {
+
+		int i = 1;
+
+		string prev = next;
+		int sz = next.size();
+		string next = to_string(sz);
+
+
+		while (prev != next) {
+			prev = next;
+			int x = next.size();
+			next = to_string(x);
+			i++;
+		}
+
+		cout << i << endl;
+
+	}
 	return 0;
 }

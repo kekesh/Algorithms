@@ -50,7 +50,34 @@ const ld PI = 4 * atan((ld)1);
 // Start of code.
 
 
+
 int main() {
 
+	ll H, L;
+
+	while (cin >> H >> L) {
+
+		if (!H && !L) break;
+
+		ll cost = 0;
+
+		ll prev;
+		cin >> prev;
+
+		cost += (H - prev);
+
+		F0R(i, L - 1) {
+			ll x;
+			cin >> x;
+			if (x >= prev) {
+				/* it's free. */
+			} else {
+				// x < prev
+				cost += (prev - x);
+			}
+			prev = x;
+		}
+		cout << cost << endl;
+	}
 	return 0;
 }

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <algorithm>
 #include <bitset>
+#include <ext/rope>
 #include <fstream>
 #include <unordered_map>
 #include <iostream>
@@ -12,6 +13,9 @@
 #include <stack>
 #include <string>
 #include <vector>
+#include <ctype.h>
+#include <stdio.h>
+
 
 using namespace std;
 
@@ -47,10 +51,47 @@ const ll INF = 1e18;
 const int MX = 35005;
 const ld PI = 4 * atan((ld)1);
 
-// Start of code.
+
+
+vector<string> split (const string &s, char delim) {
+	vector<string> result;
+	stringstream ss(s);
+	string item;
+
+	while (getline(ss, item, delim)) {
+		result.push_back(item);
+	}
+
+	return result;
+}
 
 
 int main() {
+
+	ll T;
+	scanf("%llu", &T);
+	getchar();
+	while (T--) {
+		string tc;
+		getline(cin, tc);
+		tc.erase(remove(tc.begin(), tc.end(), ' '), tc.end());
+
+
+		int f = 0;
+		int m = 0;
+		F0R(i, tc.size()) {
+			if (tc[i] == 'F') f++;
+			if (tc[i] == 'M') m++;
+		}
+
+		if (m == f && m + f >= 4) {
+			cout << "LOOP" << endl;
+		}
+		else {
+			cout << "NO LOOP" << endl;
+		}
+
+	}
 
 	return 0;
 }
