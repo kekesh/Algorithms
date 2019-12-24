@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -50,46 +49,47 @@ const ld PI = 4 * atan((ld)1);
 
 // Start of code.
 
-bool visited[50];
+bool visited[30005];
 
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
+void dfs(ll &size, ll curr, const vector<vector<int>>& AdjList) {
+
+	visited[curr] = true;
+
+	F0R(i, AdjList[curr].size()) {
+		if (!visited[AdjList[curr][i]]) {
+		        size++;
+	       		dfs(size, AdjList[curr][i], AdjList);
+		}
 	}
+
 }
 
 int main() {
-	ll T;
-	cin >> T;
-	getchar();
-	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
-		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
 
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
+
+	ll n, m;
+	while (cin >> n >> m) {
+		if (!n && !m) break;
+		vector<vector<int>> AdjList(30005);
+
+		F0R(i, m) {
+			ll num;
+			cin >> num;
+			if (num == 0) break;
+			ll fst;
+			cin >> fst;
+			F0R(j, num - 1) {
+				ll nxt;
+				cin >> nxt;
+				AdjList[fst].pb(nxt);
+				AdjList[nxt].pb(fst);
 			}
 		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
-
+		/* Graph is constructed. */
+		ll size = 1;
+		memset(visited, false, sizeof(visited));
+		dfs(size, 0, AdjList);
+		cout << size << endl;
 	}
 	return 0;
 }

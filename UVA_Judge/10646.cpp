@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -50,46 +49,57 @@ const ld PI = 4 * atan((ld)1);
 
 // Start of code.
 
-bool visited[50];
+struct Card {
+  char rank, suit;
+  Card(char r, char s) : rank(r), suit(s) {}
+};
 
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
-	}
-}
 
 int main() {
-	ll T;
-	cin >> T;
-	getchar();
-	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
-		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
+  ll T;
+  cin >> T;
+  int j = 0;
+  while (T--) {
+    vector<Card> deck;
+    vector<Card> hand;
+    F0R(i, 27) {
+      string st;
+      cin >> st;
+      Card c(st[0], st[1]);
+      deck.pb(c);
+    }
 
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
-			}
-		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
+    F0R(i, 25) {
+      string st;
+      cin >> st;
+      Card c(st[0], st[1]);
+      hand.pb(c);
+    }
 
-	}
-	return 0;
+    ll Y = 0;
+
+    F0R(i, 3) {
+      Card top = deck[deck.size() - 1];
+      ll value;
+      if (top.rank == 'A' || top.rank == 'K' || top.rank == 'Q' || top.rank == 'J' || top.rank == 'T') {
+        value = 10;
+      } else {
+        value = top.rank - '0';
+      }
+      Y += value;
+      deck.erase(deck.begin() + deck.size() - 1);
+      F0R(j, 10-value) {
+        deck.erase(deck.begin() + deck.size() - 1);
+      }
+    }
+
+    if (Y < deck.size()) {
+      cout << "Case " << ++j << ": " << deck[Y - 1].rank << deck[Y - 1].suit << endl;
+    } else {
+      Y -= deck.size();
+      cout << "Case " << ++j << ": " << hand[Y - 1].rank << hand[Y - 1].suit << endl;
+    }
+
+  }
 }
+

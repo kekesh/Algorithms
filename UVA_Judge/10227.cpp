@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -50,46 +49,41 @@ const ld PI = 4 * atan((ld)1);
 
 // Start of code.
 
-bool visited[50];
-
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
-	}
-}
-
 int main() {
+
 	ll T;
 	cin >> T;
-	getchar();
+	bool first = true;
 	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
+		if (!first) cout << "\n";
+		first = false;
+		vector<bitset<101>> arr(101);
+		arr.clear();
+		ll P, T;
+		cin >> P >> T;
 		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
 
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
+		string line;
+		while (getline(cin, line)) {
+			if (line.empty()) {
+				break;
+			}
+			istringstream iss(line);
+			ll fst, snd;
+			iss >> fst >> snd;
+			arr[fst].set(snd, true);
+		}
+
+		ll cnt = 0;
+		unordered_set<bitset<101>> seen;
+		FOR(i, 1, P + 1) {
+			if (seen.count(arr[i]) == 0) {
+				seen.insert(arr[i]);
+				cnt++;
 			}
 		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
-
+		cout << cnt << endl;
 	}
+
 	return 0;
 }

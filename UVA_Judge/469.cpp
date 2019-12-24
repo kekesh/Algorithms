@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -49,47 +48,52 @@ const int MX = 35005;
 const ld PI = 4 * atan((ld)1);
 
 // Start of code.
+vector<vector<char>> grid(100, vector<char>(100));
+ll N, M;
 
-bool visited[50];
+vector<int> dr = {1, 1, 1, 0, 0, -1, -1, -1};
+vector<int> dc = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
+int floodfill(int r, int c, char c1, char c2) {
+	if (r < 0 || c < 0 || r >= N || c >= M || grid[r][c] != c1) return 0;
+
+	int ans = 1;
+	grid[r][c] = c2;
+	F0R(i, 8) {
+		ans += floodfill(r + dr[i], c + dc[i], c1, c2);
 	}
+	return ans;
 }
 
 int main() {
+
 	ll T;
 	cin >> T;
 	getchar();
+	getchar();
 	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
-		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
-
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
+		string line;
+		grid.empty();
+		N = M = 0;
+		while (getline(cin, line)) {
+			if (line[0] != 'L' && line[0] != 'W') break;
+			M = line.size();
+			istringstream iss(line);
+			F0R(i, M) {
+				iss >> grid[N][i];
 			}
+			N++;
 		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
+		char color = 'a';
+		do {
+			if (line.empty()) break;
+			ll r, c;
+			istringstream iss(line);
+			iss >> r >> c;
+			cout << floodfill(r - 1, c - 1, grid[r - 1][c - 1], color++) << endl;
+		} while (getline(cin, line));
 
+		if (T) cout << "\n";
 	}
 	return 0;
 }

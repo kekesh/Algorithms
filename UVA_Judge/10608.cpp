@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -50,46 +49,64 @@ const ld PI = 4 * atan((ld)1);
 
 // Start of code.
 
-bool visited[50];
+struct UnionFind {
+vector<int> parent;
+vector<int> rank;
 
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
-	}
+  // Constructor
+  // Rank = order.
+UnionFind(int size) {
+parent.assign(size, 0);
+rank.assign(size, 1);
+
+F0R(i, size) {
+parent[i] = i;
+}
 }
 
+/* Implementation of findSet() with path compression. */
+int findSet(int u) {
+return (parent[u] == u) ? u : (parent[u] = findSet(parent[u]));
+}
+
+bool inSameSet(int u, int v) {
+return findSet(u) == findSet(v);
+}
+
+  /* Union by rank heuristic. */
+void unionSet(int u, int v) {
+int x = findSet(u), y = findSet(v);
+
+if (x == y) return;
+
+if (rank[x] > rank[y]) {
+parent[y] = x;
+      rank[x] += rank[y];
+} else {
+parent[x] = y;
+rank[y] += rank[x];
+}
+}
+
+};
+
+
 int main() {
-	ll T;
-	cin >> T;
-	getchar();
-	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
-		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
 
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
-			}
-		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
-
-	}
-	return 0;
+  ll T;
+  cin >> T;
+  while (T--) {
+    ll N, M;
+    cin >> N >> M;
+    UnionFind uf(N);
+    ll maxi = 1;
+    F0R(i, M) {
+      ll A, B;
+      cin >> A >> B;
+      uf.unionSet(A - 1, B - 1);
+      maxi = MAX(maxi, uf.rank[uf.findSet(A - 1)]);
+    }
+    cout << maxi << endl;
+  }
+return 0;
 }

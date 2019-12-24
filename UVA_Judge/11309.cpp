@@ -1,56 +1,64 @@
-#include <assert.h>
-#include <bits/stdc++.h>
-#include <math.h>
-#include <string.h>
-#include <algorithm>
-#include <bitset>
-#include <fstream>
-#include <unordered_map>
 #include <iostream>
-#include <list>
-#include <set>
-#include <stack>
+#include <algorithm>
 #include <string>
-#include <vector>
 
 using namespace std;
 
-typedef string str;
-typedef long long ll;
-typedef long double ld;
-typedef complex<ld> cd;
-typedef long long ll;
+bool ispalin(string st) {
+  for (int i = 0; i < st.size()/2; i++) {
+    if (st[i] != st[st.size() - i - 1]) return false;
+  }
+  return true;
+}
 
-typedef pair<int, int> pi;
-const ll INFTY = 10e8;
-
-#define mp make_pair
-#define pb push_back
-#define sz(x) (int)x.size()
-#define f first
-#define s second
-#define lb lower_bound
-#define ub upper_bound
-#define trav(a, x) for (auto &a : x)
-#define F0R(i, a) for (int i = 0; i < (a); i++)
-#define FOR(i, a, b) for (int i = (a); i < (b); i++)
-#define FORd(i, a, b) for (int i = (b)-1; i >= (a); i--)
-#define F0Rd(i, a) for (int i = (a)-1; i >= 0; i--)
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define PRINT_ARRAY(a, N)        \
-  F0R(z, N) cout << a[z] << " "; \
-  cout << "\n"
-
-const int MOD = 1000000007;  // 998244353
-const ll INF = 1e18;
-const int MX = 35005;
-const ld PI = 4 * atan((ld)1);
-
-// Start of code.
-
+inline string formstring(string hrs, string mins) {
+  string ret = "";
+  if (hrs[0] == '0' && hrs[1] == '0' && mins[0] == '0') ret += mins[1];
+  else if (hrs[0] == '0' && hrs[1] == '0') ret = mins;
+  else if (hrs[0] == '0') ret += hrs[1] + mins;
+  else ret += (hrs + mins);
+  return ret;
+}
 
 int main() {
+  long long N;
+  cin >> N;
+  while (N--) {
+    string hrs, mins, input;
+    cin >> input;
 
-	return 0;
+    hrs.push_back(input[0]);
+    hrs.push_back(input[1]);
+    mins.push_back(input[3]);
+    mins.push_back(input[4]);
+
+    do {
+        int minint = stoi(mins);
+        int hrsint = stoi(hrs);
+
+        minint++;
+        if (minint >= 60) {
+          minint %= 60;
+          hrsint++;
+          if (hrsint >= 24) {
+            hrsint %= 24;
+          }
+        }
+        if (hrsint < 10) {
+          hrs = "0" + to_string(hrsint);
+        } else {
+          hrs = to_string(hrsint);
+        }
+        if (minint < 10) {
+          mins = "0" + to_string(minint);
+        } else {
+          mins = to_string(minint);
+        }
+
+
+    } while (!ispalin(formstring(hrs, mins)));
+    // cout << "String: " << formstring(hrs, mins) << endl;
+    cout << hrs << ":" << mins << endl;
+  }
 }
+

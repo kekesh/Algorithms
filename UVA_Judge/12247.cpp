@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -50,46 +49,47 @@ const ld PI = 4 * atan((ld)1);
 
 // Start of code.
 
-bool visited[50];
-
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
-	}
-}
+bool taken[53];
 
 int main() {
-	ll T;
-	cin >> T;
-	getchar();
-	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
-		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
+	vector<int> a(3);
+	vector<int> b(3);
 
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
+	while (cin >> a[0] >> a[1] >> a[2] >> b[0] >> b[1]) {
+		memset(taken, false, sizeof(taken));
+		if (!a[0] && !a[1] && !a[2] && !b[0] && !b[1]) break;
+		taken[a[0]] = taken[a[1]] = taken[a[2]] = taken[b[0]] = taken[b[1]] = true;
+		sort(a.begin(), a.end());
+		b[2] = -1;
+
+		if (b[0] > a[2] && b[1] > a[2]) {
+			FOR(i, 1, 53) {
+				if (!taken[i]) {
+					b[2] = i;
+					break;
+				}
+			}
+		} else if (b[0] > a[1] && b[1] > a[1]) {
+			for (int i = a[1] + 1; i <= 52; i++) {
+				if (!taken[i]) {
+					b[2] = i;
+					break;
+				}
+			}
+		} else if (b[1] > a[2] || b[0] > a[2]) {
+			for (int i = a[2] + 1; i <= 52; i++) {
+				if (!taken[i]) {
+					b[2] = i;
+					break;
+				}
 			}
 		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
+
+		cout << b[2] << endl;
+
+
 
 	}
+
 	return 0;
 }

@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <bits/stdc++.h>
 #include <math.h>
-#include <sstream>
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -50,46 +49,43 @@ const ld PI = 4 * atan((ld)1);
 
 // Start of code.
 
-bool visited[50];
-
-void dfs(int src, const vector<vector<int>>& AdjList) {
-	visited[src] = true;
-	for (int n : AdjList[src]) {
-		if (!visited[n]) dfs(n, AdjList);
-	}
-}
 
 int main() {
-	ll T;
-	cin >> T;
-	getchar();
-	while (T--) {
-		vector<vector<int>> AdjList(50);
-		memset(visited, false, sizeof(visited));
-		char maxi;
-		cin >> maxi;
-		getchar();
-		ll N = (maxi - 'A' + 1);
-		string input;
-		while(getline(cin, input)) {
-			if (input.empty()) break;
-			char from, to;
-			istringstream iss(input);
-			iss >> from >> to;
-			AdjList[from - 'A'].pb(to - 'A');
-			AdjList[to - 'A'].pb(from - 'A');
-		}
-		int numCC = 0;
+	ll A, B;
+	while (cin >> A >> B) {
 
-		F0R(i, N) {
-			if (!visited[i]) {
-				dfs(i, AdjList);
-				numCC++;
+		if (!A && !B) break;
+
+		set<int> alice;
+       		set<int> betty;
+
+		F0R(i, A) {
+			ll tmp;
+			cin >> tmp;
+			alice.insert(tmp);
+		}
+
+		F0R(i, B) {
+			ll tmp;
+			cin >> tmp;
+			betty.insert(tmp);
+		}
+		int cnt1 = 0;
+
+		for (auto card : alice) {
+			if (!betty.count(card)) {
+				cnt1++;
 			}
 		}
-		cout << numCC << endl;
-		if (T) cout << "\n";
+		int cnt2 = 0;
+		for (auto card : betty) {
+			if (!alice.count(card)) {
+				cnt2++;
+			}
+		}
 
+		cout << MIN(cnt1, cnt2) << endl;
 	}
+
 	return 0;
 }
