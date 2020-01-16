@@ -1,1 +1,0 @@
-void answer(int x);

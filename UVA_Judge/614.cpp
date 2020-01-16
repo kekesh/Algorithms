@@ -53,6 +53,7 @@ bool visited[150];
 int parent[150];
 int num;
 bool found;
+int j;
 
 void dfs(const vector<vector<int>>& AdjList, int src, int dest) {
 	visited[src] = true;
@@ -81,15 +82,25 @@ void print_path(int u, int src, unordered_map<int, int>& path) {
 
 int main() {
 
+	//freopen("output.out","w",stdout);
 	ll R, C, ri, ci, rf, cf;
-
+	bool fst = true;
 	while (cin >> R >> C >> ri >> ci >> rf >> cf) {
 		if (R == 0 && C == 0 && ri == 0 && ci == 0 && rf == 0 && cf == 0) break;
+		//if (!fst) fout << "\n";
+		fst = false;
+
+		printf("Maze %d\n\n", ++j);
+
 		rf--;
 		cf--;
 		ri--;
 		ci--;
 		vector<vector<int>> AdjList(150);
+		memset(visited, false, sizeof(visited));
+		memset(parent, 0, sizeof(parent));
+		num = 0;
+		found = false;
 		int masks[13][13];
 		// (i, j) -> [i * C + j]
 		F0R(i, R) {
@@ -125,19 +136,19 @@ int main() {
 			bool east_wall = (mask & (1 << 0));
 			bool south_wall = (mask & (1 << 1));
 			if (east_wall) {
-				cout << i << " has an east wall." << endl;
+//				cout << i << " has an east wall." << endl;
 				// There is an east wall. Need to remove east neighbor.
 				int to_rem = i + 1;
 				F0R(j, AdjList[i].size()) {
 					if (AdjList[i][j] == to_rem) {
-						cout << "removed " << to_rem <<  " from " << i << endl;
+//						cout << "removed " << to_rem <<  " from " << i << endl;
 						AdjList[i].erase(AdjList[i].begin() + j);
 					}
 				}
 				// Remove i from the other one.
 				F0R(j, AdjList[to_rem].size()) {
 					if (AdjList[to_rem][j] == i) {
-						cout << "removed " << i << " from " << to_rem << endl;
+//						cout << "removed " << i << " from " << to_rem << endl;
 						AdjList[to_rem].erase(AdjList[to_rem].begin() + j);
 					}
 				}
@@ -145,18 +156,18 @@ int main() {
 
 			if (south_wall) {
 				// There is a south wall. need to remove south neighbor.
-				cout << i << " has a south wall." << endl;
+//				cout << i << " has a south wall." << endl;
 				int to_rem = i + C;
-				cout << "to_rem = " << to_rem << endl;
+//				cout << "to_rem = " << to_rem << endl;
 				F0R(j, AdjList[i].size()) {
 					if (AdjList[i][j] == to_rem) {
-						cout << "removed " << to_rem <<  " from " << i << endl;
+//						cout << "removed " << to_rem <<  " from " << i << endl;
 						AdjList[i].erase(AdjList[i].begin() + j);
 					}
 				}
 				F0R(j, AdjList[to_rem].size()) {
 					if (AdjList[to_rem][j] == i) {
-						cout << "removed " << i << " from " << to_rem << endl;
+//						cout << "removed " << i << " from " << to_rem << endl;
 						AdjList[to_rem].erase(AdjList[to_rem].begin() + j);
 					}
 				}
@@ -166,13 +177,13 @@ int main() {
 		// adjacency list has been constructed.
 
 
-		F0R(i, R*C) {
+		/*F0R(i, R*C) {
 			cout << "Cell " << i << " neighbors: ";
 			F0R(j, AdjList[i].size()) {
 				cout << AdjList[i][j] << " ";
 			}
 			cout << endl;
-		}
+		}*/
 
 		int src = ri * C + ci;
 		int dest = rf * C + cf;
@@ -183,31 +194,48 @@ int main() {
 		print_path(dest, src, path);
 
 
-		string ans = "";
-		cout << "Building string!" << endl;
+		//string ans = "";
+		printf("+");
+		F0R(i, C) {
+			printf("---+");
+		}
+		puts("");
+
 		F0R(i, R) {
+			printf("|");
 			F0R(j, C) {
 				int c = i*C + j;
-				if (path.find(c) != path.end()) {
+				if (found && path.find(c) != path.end()) {
 					// part of the path.
 					int num = path[c];
-					if (num >= 100) ans += to_string(num) + " ";
-					else if (num >= 10) ans += " " + to_string(num) + " ";
-					else ans += "  " + to_string(num) + " ";
+					num++;
+					if (num >= 100) printf("%d", num);
+					else if (num >= 10) printf(" %d", num);
+					else printf("  %d", num);
 				} else if (visited[c]) {
-					ans += "??? ";
+					printf("???");
 				} else {
-					ans += "    ";
+					printf("   ");
 				}
-
+				int m = masks[i][j];
+				if (j == C - 1 || (m & (1 << 0))) printf("|");
+				else printf(" ");
 			}
-			ans += '\n';
+//			printf("\n");
+			puts("");
+			// intermediate.
+			printf("+");
+			F0R(j, C) {
+				int m = masks[i][j];
+				if (i == R - 1 || (m & (1 << 1))) printf("---");
+				else printf("   ");
+				printf("+");
+			}
+//			ans += "\n";
+			puts("");
 		}
-		cout << "PRINTIN IT " << endl;
 
-		cout << ans << endl;
-
+		puts(""); puts("");
 	}
-
 	return 0;
 }
