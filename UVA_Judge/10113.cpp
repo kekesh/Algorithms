@@ -54,6 +54,8 @@ ll gcd(ll a, ll b) {
 	return gcd(b % a, a);
 }
 
+/* DFSMultiply will multiply the quantity of every item in the same connected component
+ * as src by multiplier. We also compute the GCD over all quantities simultaneously. */
 void DFSMultiply(vector<vector<int> >& AdjList, int src, unordered_map<ll, ll>& quantities, ll multiplier, ll& g) {
   visited[src] = true;
   quantities[src] *= multiplier;
@@ -125,7 +127,9 @@ int main(void) {
       }
 
 
-      /* We need the ratio between from and to to be q1/q2. Let a and b be the old amounts of from and to. DFSMultiply a by q1*b and DFSMultiply b by q2*a since q1*ab/q2*ab = q1/q2. */
+      /* We need the ratio between from and to to be q1/q2.
+       * Let a and b be the old amounts of from and to.
+       * DFSMultiply a by q1*b and DFSMultiply b by q2*a since q1*ab/q2*ab = q1/q2. */
       memset(visited, false, sizeof(visited));
       ll multiplier1 = q1 * quantities[indices[to]];
       ll multiplier2 = q2 * quantities[indices[from]]; // q2 * a

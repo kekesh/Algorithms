@@ -20,7 +20,9 @@ typedef long long ll;
 typedef long double ld;
 typedef complex<ld> cd;
 typedef long long ll;
+
 typedef pair<int, int> pi;
+const ll INFTY = 10e8;
 
 #define mp make_pair
 #define pb push_back
@@ -48,7 +50,24 @@ const ld PI = 4 * atan((ld)1);
 // Start of code.
 
 
-int main() {
+// a < b
+// capital goes first (so it's smaller)
+bool cmp(char a, char b) {
+	if (tolower(a) == tolower(b)) return a < b;
+	return tolower(a) < tolower(b);
+}
 
+
+int main() {
+	ll T;
+	cin >> T;
+	while (T--) {
+		string s;
+		cin >> s;
+		sort(s.begin(), s.end(), cmp);
+		do {
+			cout << s << endl;
+		} while (next_permutation(s.begin(), s.end(), cmp));
+	}
 	return 0;
 }
