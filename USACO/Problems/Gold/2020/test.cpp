@@ -48,9 +48,52 @@ const ld PI = 4 * atan((ld)1);
 const int INFTY = 2147483643;
 
 // Start of code.
+bool vis[10000];
+vector<int> s;
+vector<vi> AdjList;
+void toposort(int u) {
+	vis[u] = true;
+
+	F0R(i, AdjList[u].size()) {
+		int v = AdjList[u][i];
+		if (!vis[v]) {
+			toposort(v);
+		}
+	}
+	s.pb(u);
+}
 
 
 int main() {
+
+	AdjList.pb({1, 2});
+	AdjList.pb({2});
+	AdjList.pb({3});
+	AdjList.pb({});
+	ll V = AdjList.size();
+
+	vector<ll> d(V, -INFTY);
+	toposort(0);
+	reverse(s.begin(), s.end());
+
+	ll root = s[0];
+	d[root] = 0;
+
+	F0R(i, V) {
+		ll u = s[i];
+		for (auto v : AdjList[u]) {
+			if (d[v] < d[u] + 1) {
+				d[v] = d[u] + 1;
+			}
+		}
+	}
+
+	F0R(i, V) {
+		cout << "Longest path from root to " << i << " is " << d[i] << endl;
+	}
+
+
+
 
 	return 0;
 }

@@ -21,6 +21,7 @@ typedef long double ld;
 typedef complex<ld> cd;
 typedef long long ll;
 typedef pair<int, int> pi;
+typedef vector<int> vi;
 
 #define mp make_pair
 #define pb push_back
@@ -44,6 +45,7 @@ const int MOD = 1000000007;  // 998244353
 const ll INF = 1e18;
 const int MX = 35005;
 const ld PI = 4 * atan((ld)1);
+const int INFTY = 2147483643;
 
 // Start of code.
 

@@ -49,8 +49,59 @@ const int INFTY = 2147483643;
 
 // Start of code.
 
+ll dfs_num[10000], dfs_low[10000], parent[10000], num_children[10000], cnt[10000];
+bool artpoint[10000];
+ll dfs_counter;
+vector<vi> AdjList;
+
+void strongArtPoint(int u) {
+	dfs_low[u] = dfs_num[u] = ++dfs_counter;
+
+	F0R(i, AdjList[u].size()) {
+		ll v = AdjList[u][i];
+		if (dfs_num[v] == 0) {
+			parent[v] = u;
+			num_children[u]++;
+			strongArtPoint(v);
+
+			if (dfs_low[v] >= dfs_low[u]) {
+				cnt[u]++;
+				if (cnt[u] >= 2) artpoint[u] = true;
+			}
+
+			dfs_low[u] = MIN(dfs_low[u], dfs_low[v]);
+		} else if (v != parent[u]) {
+			dfs_low[u] = MIN(dfs_low[u], dfs_num[v]);
+		}
+	}
+}
+
+
 
 int main() {
+
+	AdjList.pb({1, 4, 5});
+	AdjList.pb({0, 2, 3});
+	AdjList.pb({1});
+	AdjList.pb({1});
+	AdjList.pb({0});
+	AdjList.pb({0});
+	AdjList.pb({4});
+
+	F0R(i, 7) {
+		if (dfs_num[i] == 0) {
+			ll root = i;
+			strongArtPoint(i);
+			artpoint[root] = (num_children[root] >= 3); // special case.
+		}
+	}
+
+
+	F0R(i, 7) {
+		if (artpoint[i]) {
+			cout << i << " is a strong articulation point." << endl;
+		}
+	}
 
 	return 0;
 }

@@ -45,12 +45,35 @@ const int MOD = 1000000007;  // 998244353
 const ll INF = 1e18;
 const int MX = 35005;
 const ld PI = 4 * atan((ld)1);
-const int INFTY = 2147483643;
 
 // Start of code.
 
 
 int main() {
+	ll k;
+	bool fst = true;
+	while (cin >> k, k != 0) {
+		if (!fst) cout << endl;
+		fst = false;
+		vi A(k);
+		F0R(i, k) {
+			cin >> A[i];
+		}
+
+		FOR(i1, 0, k) {
+			FOR(i2, i1 + 1, k) {
+				FOR(i3, i2 + 1, k) {
+					FOR(i4, i3 + 1, k) {
+						FOR(i5, i4 + 1, k) {
+							FOR(i6, i5 + 1, k) {
+								cout << A[i1] << " " << A[i2] << " " << A[i3] << " " << A[i4] << " " << A[i5] << " " << A[i6] << endl;
+	}
+						}
+					}
+				}
+			}
+		}
+	}
 
 	return 0;
 }

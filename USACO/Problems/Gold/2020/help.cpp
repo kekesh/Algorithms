@@ -21,6 +21,7 @@ typedef long double ld;
 typedef complex<ld> cd;
 typedef long long ll;
 typedef pair<int, int> pi;
+typedef vector<pi> vii;
 typedef vector<int> vi;
 
 #define mp make_pair
@@ -48,9 +49,37 @@ const ld PI = 4 * atan((ld)1);
 const int INFTY = 2147483643;
 
 // Start of code.
+ifstream fin("help.in");
+ofstream fout("help.out");
 
+ll N;
+
+vector<pair<int, int>> intervals;
 
 int main() {
+	fin >> N;
+
+	F0R(i, N) {
+		ll a, b;
+		fin >> a >> b;
+		intervals.pb(mp(a, b));
+	}
+	// bruteforce solution.
+	ll sum = 0;
+	for (int i = 0; i < (1 << N); i++) {
+//		cout << "{";
+		vector<pair<int, int>> subset;
+		sum++;
+		for (int j = 0; j < N; j++) {
+			if (((1 << j) & i)) {
+				subset.pb(intervals[j]);
+//				cout << "(" << intervals[j].first << "," << intervals[j].second << "), ";
+			}
+		}
+//		cout << "}" << endl;
+	}
+	fout << sum % MOD << endl;
+	fout.close();
 
 	return 0;
 }

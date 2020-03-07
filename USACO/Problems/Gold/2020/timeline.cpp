@@ -21,6 +21,7 @@ typedef long double ld;
 typedef complex<ld> cd;
 typedef long long ll;
 typedef pair<int, int> pi;
+typedef vector<pi> vii;
 typedef vector<int> vi;
 
 #define mp make_pair
@@ -48,9 +49,80 @@ const ld PI = 4 * atan((ld)1);
 const int INFTY = 2147483643;
 
 // Start of code.
+ifstream fin("timeline.in");
+ofstream fout("timeline.out");
+
+vector<vector<pair<int, int>>> AdjList(100005);
+vi pos(100005);
+bool vis[100005];
+ll N, M, C;
+stack<int> toposort;
+
+void dfs(int src) {
+	vis[src] = true;
+	F0R(i, AdjList[src].size()) {
+		int v = AdjList[src][i].first;
+		if (!vis[v]) {
+			dfs(v);
+		}
+	}
+	toposort.push(src);
+}
+
 
 
 int main() {
+	fin >> N >> M >> C;
+
+	FOR(i, 1, N + 1) {
+		fin >> pos[i];
+		AdjList[0].pb(mp(i, -pos[i]));
+	}
+
+
+
+
+
+	F0R(i, C) {
+		ll from, to, w;
+		fin >> from >> to >> w;
+		AdjList[from].pb(mp(to, -w)); /* Negate edge weights. */
+	}
+
+	dfs(0);
+	vector<int> topo;
+	while (!toposort.empty()) {
+		int u = toposort.top(); toposort.pop();
+		topo.pb(u);
+//		cout << u << " ";
+	}
+	/* Toposort is complete. */
+
+	vector<ll> d(N + 1, INFTY);
+	d[0] = 0;
+	F0R(i, topo.size()) {
+		int u = topo[i];
+
+		for (auto p : AdjList[u]) {
+			int v = p.first;
+			int w = p.second; /* Edge weight. */
+			if (w + d[u] < d[v]) {
+				d[v] = w + d[u];
+			}
+		}
+	}
+//	cout << "printing" << endl;
+	F0R(i, d.size() - 1) {
+		fout << -d[i + 1] << endl;
+	}
+
+	// longest path in DAG
+
+
+
+
+	//
+
 
 	return 0;
 }

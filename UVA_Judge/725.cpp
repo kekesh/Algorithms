@@ -45,12 +45,35 @@ const int MOD = 1000000007;  // 998244353
 const ll INF = 1e18;
 const int MX = 35005;
 const ld PI = 4 * atan((ld)1);
-const int INFTY = 2147483643;
 
 // Start of code.
 
-
 int main() {
-
+	int N;
+	bool fst = true;
+	while (cin >> N, N != 0) {
+		if (!fst) cout << endl;
+		fst = false;
+		bool exists = false;
+		for (int abcde = 01234; abcde <= 98765/N; abcde++) {
+			int fghij = abcde * N;
+			int mask = (abcde < 10000);
+			int tmp = abcde;
+			while (tmp) {
+				mask |= 1 << (tmp % 10);
+				tmp /= 10;
+			}
+			tmp = fghij;
+			while (tmp) {
+				mask |= 1 << (tmp % 10);
+				tmp /= 10;
+			}
+			if (mask == (1 << 10) - 1) {
+				exists = true;
+				printf("%0.5d / %0.5d = %d\n", fghij, abcde, N);
+			}
+		}
+		if (!exists) cout << "There are no solutions for " << N << "." << endl;
+	}
 	return 0;
 }
