@@ -16,15 +16,13 @@
 using namespace std;
 
 const int MOD = 1e9 + 7;
- 
+
 class Matrix {
 		private:
 				vector<vector<long long>> matrix;
 				long long rows, cols;
 		public:
-				Matrix() {
-
-				}
+				Matrix() { }
 
 				Matrix(long long _r, long long _c) : rows(_r), cols(_c) {
 						matrix.resize(_r, vector<long long>(_c));
@@ -50,7 +48,7 @@ class Matrix {
 
 				/* Standard mathematical operations. */
 				Matrix operator+(const Matrix& other) const {
-						//assert(rows == other.rows && cols == other.cols);
+						// assert(rows == other.rows && cols == other.cols);
 						vector<vector<long long>> sum(rows, vector<long long>(cols, 0));
 						for (int i = 0; i < rows; i++) {
 								for (int j = 0; j < cols; j++) {
@@ -100,7 +98,7 @@ class Matrix {
 						return Matrix(product);
 				}
 				Matrix& operator*=(const Matrix& other) {
-						//assert(cols == other.rows);
+						// assert(cols == other.rows);
 						vector<vector<long long>> product(rows, vector<long long>(other.cols, 0));
 						for (int i = 0; i < rows; i++) {
 								for (int j = 0; j < other.cols; j++) {

@@ -9,7 +9,6 @@ using namespace std;
 const int INFTY = 10e8;
 
 int bfs(int src, vector<vector<int>>& AdjList, bool second_time) {
-
   vector<int> d(100);
   for (int i = 0; i < d.size(); i++) {
     d[i] = INFTY;
@@ -33,7 +32,6 @@ int bfs(int src, vector<vector<int>>& AdjList, bool second_time) {
       }
     }
   }
-
   return (second_time ? max_dist : bfs(max_vertex, AdjList, true));
 }
 

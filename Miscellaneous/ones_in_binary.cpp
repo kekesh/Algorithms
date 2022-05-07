@@ -38,8 +38,6 @@ int main() {
   while (N > 0) {
       N &= (N-1), count++;
   }
-
   cout << "Answer: " << count << endl;
-
   return 0;
 }

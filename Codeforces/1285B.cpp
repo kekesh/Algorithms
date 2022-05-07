@@ -15,14 +15,7 @@
 
 using namespace std;
 
-typedef string str;
-typedef long long ll;
-typedef long double ld;
-typedef complex<ld> cd;
-typedef long long ll;
-
 typedef pair<int, int> pi;
-const ll INFTY = 10e8;
 
 #define mp make_pair
 #define pb push_back
@@ -42,15 +35,31 @@ const ll INFTY = 10e8;
   F0R(z, N) cout << a[z] << " "; \
   cout << "\n"
 
-const int MOD = 1000000007;  // 998244353
-const ll INF = 1e18;
-const int MX = 35005;
-const ld PI = 4 * atan((ld)1);
-
 // Start of code.
 
-
 int main() {
-
-	return 0;
+	long long t;
+	cin >> t;
+	while (t--) {
+	  	long long n, yasser = 0, adel = -1e18;
+	  	cin >> n;
+	  	vector<long long> a(n);
+	  	for (int i = 0; i < n; ++i) cin >> a[i], yasser += a[i];
+	  
+	  	vector<long long> dp1(n), dp2(n);
+	  	dp1[0] = a[0];
+	  	dp2[1] = a[1];
+			adel = max(a[0], a[1]);
+	  
+	  	for (int i = 1; i < n - 1; ++i) {
+	  		dp1[i] = max(dp1[i - 1] + a[i], a[i]);
+	  		adel = max(adel, dp1[i]);
+	  	}
+	  
+	  	for (int i = 2; i < n; ++i) {
+	  		dp2[i] = max(dp2[i - 1] + a[i], a[i]);
+	  		adel = max(adel, dp2[i]);
+	  	}
+	  	cout << (yasser > adel ? "YES" : "NO") << endl;
+	}
 }
